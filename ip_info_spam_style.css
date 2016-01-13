@@ -1,0 +1,28 @@
+h1, h2 { text-align:center; }
+
+a {
+    text-decoration:none;
+    color:#33f;
+}
+a:hover { text-decoration:underline; }
+
+#content {
+    width: 800px;
+    position: absolute;
+    left: 50%;
+    margin-left:-400px;
+}
+
+#info {
+    width: 50%;
+    float: left;
+    text-align: left;
+    vertical-align:top;
+}
+
+#map-canvas {
+    float: left;
+    width: 50%;
+    height: 400px;
+}
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><{$title}></title>
+        <link rel="stylesheet" type="text/css" href="ip_info_spam_style.css"/>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    </head>
+
+    <body>
+        <center>
+            <h1><{$subTitle}></h1>
+            <form method="post" action="<{$smarty.server.PHP_SELF}>">
+                <input type="text" name="ip" autofocus />
+                <input type="submit" value="Get IP address Live Results">
+            </form>
+        </center>
+
+        <h2><u>Live Results for <{$ipAddr}></u></h2>
+        <div id="content">
+            <div id="info">
+                <h4>IP Address: <{$ipAddr}></h4>
+                <h4>Location: <{$ipGeo->country_name}>, <{$ipGeo->region_name}>, <{$ipGeo->city}></h3>
+                <{section name=chkRes loop=$spamCheck}>
+                    <{if $spamCheck[chkRes].result eq 1}>
+                        <{assign var=fontColor value='#f00'}>
+                        <{assign var=resText value='Listed'}>
+                    <{else}>
+                        <{assign var=fontColor value='#390'}>
+                        <{assign var=resText value='Clear'}>
+                    <{/if}>
+                    <h4><{$spamCheck[chkRes].serverName}> Check Result:&nbsp;&nbsp;<font color="<{$fontColor}>"><{$resText}></font></h3>
+                <{/section}>
+            </div>
+
+            <script>
+            function initialize() {
+              var mapOptions = {
+                zoom: 8,
+                center: new google.maps.LatLng(<{$ipGeo->latitude}>, <{$ipGeo->longitude}>)
+              };
+
+              var map = new google.maps.Map(document.getElementById('map-canvas'),
+                  mapOptions);
+
+              var marker = new google.maps.Marker({
+                position: map.getCenter(),
+                map: map,
+                title: 'Click to zoom'
+              });
+
+              google.maps.event.addListener(map, 'center_changed', function() {
+                // 3 seconds after the center of the map has changed, pan back to the
+                // marker.
+                window.setTimeout(function() {
+                  map.panTo(marker.getPosition());
+                }, 3000);
+              });
+
+              google.maps.event.addListener(marker, 'click', function() {
+                map.setZoom(8);
+                map.setCenter(marker.getPosition());
+              });
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+            </script>
+            <div id="map-canvas"></div>
+        </div>
+    </body>
+</html>
