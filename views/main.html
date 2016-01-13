@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8" />
         <title><{$title}></title>
         <link rel="stylesheet" type="text/css" href="ip_info_spam_style.css"/>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     </head>
 
     <body>
-        <center>
+        <div class="title">
             <h1><{$subTitle}></h1>
             <form method="post" action="<{$smarty.server.PHP_SELF}>">
                 <input type="text" name="ip" autofocus />
                 <input type="submit" value="Get IP address Live Results">
             </form>
-        </center>
+        </div>
 
         <h2><u>Live Results for <{$ipAddr}></u></h2>
         <div id="content">
@@ -22,13 +23,13 @@
                 <h4>Location: <{$ipGeo->country_name}>, <{$ipGeo->region_name}>, <{$ipGeo->city}></h4>
                 <{section name=chkRes loop=$spamCheck}>
                     <{if $spamCheck[chkRes].result eq 1}>
-                        <{assign var=fontColor value='#f00'}>
+                        <{assign var=fontClass value='textRed'}>
                         <{assign var=resText value='Listed'}>
                     <{else}>
-                        <{assign var=fontColor value='#390'}>
+                        <{assign var=fontClass value='textGreen'}>
                         <{assign var=resText value='Clear'}>
                     <{/if}>
-                    <h4><{$spamCheck[chkRes].serverName}> Check Result:&nbsp;&nbsp;<font color="<{$fontColor}>"><{$resText}></font></h4>
+                    <h4><{$spamCheck[chkRes].serverName}> Check Result:&nbsp;&nbsp;<span class="<{$fontClass}>"><{$resText}></span></h4>
                 <{/section}>
             </div>
 

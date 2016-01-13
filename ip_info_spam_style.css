@@ -6,6 +6,18 @@ a {
 }
 a:hover { text-decoration:underline; }
 
+.title {
+    text-align: center;
+}
+
+.textRed {
+    color: #f00;
+}
+
+.textGreen {
+    color: #390;
+}
+
 #content {
     width: 800px;
     position: absolute;
